@@ -6,6 +6,7 @@ import json
 import sys
 import os
 
+giteaGetUserCache = dict()
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 config = json.loads(open(os.path.expanduser("{0}/config.json".format(THIS_FOLDER))).read().strip())
 
@@ -72,10 +73,15 @@ def giteaCreateOrg(orgname):
    if r.status_code != 201:
       return 'failed'
 
-   return json.loads(r.text)["id"]
+   giteaGetUserCache["{0}".format(orgname)] = json.loads(r.text)["id"]
+   return giteaGetUserCache[orgname]
 
 def giteaGetUser(username):
+    if username in giteaGetUserCache:
+        return giteaGetUserCache[username]
+
     r = session.get(giteaHost('users/{0}'.format(username)))
     if r.status_code != 200:
         return 'failed'
-    return json.loads(r.text)["id"]
+    giteaGetUserCache["{0}".format(username)] = json.loads(r.text)["id"]
+    return giteaGetUserCache[username]

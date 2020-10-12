@@ -1,2 +1,7 @@
-# github-gitea-mirror
-Simple Python Script To Mirror Repository From Github To Gitea
+# Github To Gitea Mirror
+Simple Python Script To Mirror Repository / Gist From Github To Gitea
+
+## Why ?
+
+## Usage
+

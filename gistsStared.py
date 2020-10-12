@@ -2,7 +2,7 @@
 # https://github.com/PyGithub/PyGithub
 from helper import getConfig, giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser
 
-def sourceGist():
+def gistsStared():
     config = getConfig()
     session = giteaSession()
     gh = ghApi()
@@ -12,7 +12,7 @@ def sourceGist():
         default_gist_user = giteaCreateOrg('gist')
 
 
-    for repo in gh.get_user().get_gists():
+    for repo in gh.get_user().get_starred_gists():
         if repo.public:
             isPrivate = False
         else:
@@ -50,7 +50,7 @@ def sourceGist():
         status = giteaCreateRepo(m,isPrivate)
 
         if status == 'created':
-            topics = ['gist','{0}-gist'.format(repo_owner)]
+            topics = ['gist','{0}-gist'.format(repo_owner),'gist-stared','{0}-stared-gist'.format(repo_owner)]
             if isPrivate:
                 topics.append('secret-gist')
                 topics.append('secret-{0}-gist'.format(repo_owner))

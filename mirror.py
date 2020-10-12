@@ -1,15 +1,20 @@
 #!/usr/bin/env python
 from helper import getConfig
-from sourceGist import sourceGist
+from gistsSource import gistsSource
+from gistsStared import gistsStared
 from repositorySource import repositorySource
 from repositoryStared import repositoryStared
 from repositoryForked import repositoryForked
 
 config = getConfig()
 
-if config['gist']:
-    print('Setting Up Mirror For Github Gists')
-    sourceGist()
+if config['gistsSource']:
+    print('Setting Up Mirror For Source Github Gists')
+    gistsSource()
+
+if config['gistsStared']:
+    print('Setting Up Mirror For Stared Github Gists')
+    #gistsStared()
 
 if config['repositorySource']:
     print('Setting Up Mirror For Source Github Repository')

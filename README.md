@@ -1,4 +1,7 @@
-# Github To Gitea Mirror
+<p align="center">
+    <img src="https://cdn.svarun.dev/gh/varunsridharan/github-gitea-mirror/banner.jpg"/>
+</p>
+
 Simple Python Script To Mirror Repository / Gist From Github To Gitea
 
 ## Why ?

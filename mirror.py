@@ -14,16 +14,16 @@ if config['gistsSource']:
 
 if config['gistsStared']:
     print('Setting Up Mirror For Stared Github Gists')
-    #gistsStared()
+    gistsStared()
 
 if config['repositorySource']:
     print('Setting Up Mirror For Source Github Repository')
-    #repositorySource()
+    repositorySource()
 
 if config['repositoryStared']:
     print('Setting Up Mirror For Stared Github Repository')
-    #repositoryStared()
+    repositoryStared()
 
 if config['repositoryForked']:
     print('Setting Up Mirror For Forked Github Repository')
-    #repositoryForked()
+    repositoryForked()

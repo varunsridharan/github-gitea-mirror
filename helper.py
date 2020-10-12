@@ -6,7 +6,11 @@ import json
 import sys
 import os
 
-config = json.loads(open(os.path.expanduser("./config.json")).read().strip())
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+config = json.loads(open(os.path.expanduser("{0}/config.json".format(THIS_FOLDER))).read().strip())
+
+def getConfig():
+    return config
 
 def giteaHost(endPoint):
     return "{0}/api/v1/{1}".format(config['gitea']['host'],endPoint)

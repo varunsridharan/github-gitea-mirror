@@ -2,18 +2,18 @@
 # https://github.com/PyGithub/PyGithub
 from helper import getConfig,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
 
-config = getConfig()
-repo_map = config['repomap']
-session = giteaSession()
-gh = ghApi()
+def repositoryStared():
+    config = getConfig()
+    repo_map = config['repomap']
+    session = giteaSession()
+    gh = ghApi()
 
-for repo in gh.get_user().get_repos():
-    if not repo.fork:
+    for repo in gh.get_user().get_starred():
         real_repo = repo.full_name.split('/')[1]
         gitea_dest_user = repo.owner.login
         repo_owner=repo.owner.login
 
-        print('Source Repository : {0}'.format(repo.full_name))
+        print('⭐  Star\'ed Repository : {0}'.format(repo.full_name))
 
         if real_repo in repo_map:
             gitea_dest_user = repo_map[real_repo]

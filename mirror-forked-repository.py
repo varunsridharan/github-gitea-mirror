@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
-import json
-import sys
-import os
 from helper import getConfig,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
 
 config = getConfig()

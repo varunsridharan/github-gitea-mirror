@@ -1,10 +1,5 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
-from github import Github
-import requests
-import json
-import sys
-import os
 from helper import getConfig, giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser
 config = getConfig()
 session = giteaSession()
@@ -63,3 +58,4 @@ for repo in gh.get_user().get_gists():
         giteaSetRepoTopics(repo_owner,m["repo_name"],topics)
 
     print(" ")
+    exit(1)

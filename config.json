@@ -1,0 +1,21 @@
+{
+  "github"           : {
+	"username"    : "",
+	"accesstoken" : ""
+  },
+  "gitea"            : {
+	"host"        : "",
+	"accesstoken" : "",
+	"username"    : "",
+	"gist"        : {
+	  "prefix" : "gist",
+	  "surfix" : ""
+	}
+  },
+  "repomap"          : { },
+  "gistsSource"      : true,
+  "gistsStared"      : true,
+  "repositoryStared" : true,
+  "repositorySource" : true,
+  "repositoryForked" : true
+}

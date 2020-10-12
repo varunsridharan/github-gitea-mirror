@@ -8,6 +8,12 @@ import os
 
 config = json.loads(open(os.path.expanduser("./config.json")).read().strip())
 
+def giteaHost(endPoint):
+    return "{0}/api/v1/{1}".format(config['gitea']['host'],endPoint)
+
+def ghApi():
+    return Github(config['github']['accesstoken'])
+
 def giteaSession():
     session = requests.Session()
     session.headers.update({
@@ -20,14 +26,52 @@ def giteaSession():
 
 session = giteaSession()
 
-
 def giteaSetRepoTopics(owner,repo_name,topics):
     m = {
         "topics":topics,
     }
-    r = session.put("{0}/api/v1/repos/{1}/{2}/topics".format(config['gitea']['host'],owner,repo_name), data=json.dumps(m))
+
+    r = session.put(giteaHost("repos/{0}/{1}/topics".format(owner,repo_name)), data=json.dumps(m))
 
     if r.status_code == 204:
-        print('     ---> SUCCESS : Repository Topics Set')
+        print('     ---> Success : Repository Topics Set')
     else:
-        print('     ---> ERROR : Unable To SetRepository Topics')
+        print('     ---> Error : Unable To SetRepository Topics')
+
+def giteaCreateRepo(data,isPrivate):
+    if isPrivate:
+        data["auth_username"]  = config['github']['username']
+        data["auth_password"]  = "{0}".format(config['github']['accesstoken'])
+
+    jsonstring = json.dumps(data)
+    r = session.post(giteaHost('repos/migrate'), data=jsonstring)
+
+    if r.status_code == 201:
+        print("     ---> Success : Repository Created")
+        return 'created'
+    elif r.status_code == 409:
+        print("     ---> Warning : Repository Already Exists")
+        return 'exists'
+    else:
+        print(r.status_code, r.text, jsonstring,"\n\r")
+        return 'failure'
+
+def giteaCreateOrg(orgname):
+   body = {
+	'full_name' : orgname,
+	'username'  : orgname,
+   }
+
+   jsonstring = json.dumps(body)
+   r = session.post(giteaHost('orgs/'), data=jsonstring)
+
+   if r.status_code != 201:
+      return 'failed'
+
+   return json.loads(r.text)["id"]
+
+def giteaGetUser(username):
+    r = session.get(giteaHost('users/{0}'.format(username)))
+    if r.status_code != 200:
+        return 'failed'
+    return json.loads(r.text)["id"]

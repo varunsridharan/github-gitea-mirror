@@ -38,4 +38,3 @@ for repo in gh.get_user().get_repos():
         topics = repo.get_topics()
         giteaSetRepoTopics(repo_owner,repo_name,topics)
         print(" ")
-        exit(1)

@@ -68,5 +68,3 @@ for repo in gh.get_user().get_starred():
         print("[Warning] : {0} Repository Already Exists\n\r".format(repo.full_name))
     else:
         print(r.status_code, r.text, jsonstring,"\n\r")
-
-    exit(1)

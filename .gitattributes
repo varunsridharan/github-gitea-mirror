@@ -1,0 +1,15 @@
+.travis.yml export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+config.js export-ignore
+gulpfile.js export-ignore
+package.json export-ignore
+package-lock.json export-ignore
+src/ export-ignore
+.github/ export-ignore
+.wordpress-org/ export-ignore
+.all-contributorsrc export-ignore
+.wporgignore
+./src/ export-ignore
+composer.lock export-ignore
+wp-pot.json export-ignore

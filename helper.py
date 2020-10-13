@@ -43,6 +43,14 @@ def giteaSetRepoTopics(owner,repo_name,topics):
     else:
         print('     ---> Error : Unable To SetRepository Topics')
 
+def giteaSetRepoStar(owner,repo_name,topics):
+    r = session.put(giteaHost("user/starred/{0}/{1}/".format(owner,repo_name)))
+
+    if r.status_code == 204:
+        print('     ---> Success : Repository Starred')
+    else:
+        print('     ---> Error : Unable To Star The Repository')
+
 def giteaCreateRepo(data,isPrivate):
     if isPrivate:
         data["auth_username"]  = config['github']['username']
@@ -59,7 +67,7 @@ def giteaCreateRepo(data,isPrivate):
         return 'exists'
     else:
         print(r.status_code, r.text, jsonstring,"\n\r")
-        return 'failure'
+        return 'failed'
 
 def giteaCreateOrg(orgname):
    body = {
@@ -75,6 +83,30 @@ def giteaCreateOrg(orgname):
 
    giteaGetUserCache["{0}".format(orgname)] = json.loads(r.text)["id"]
    return giteaGetUserCache[orgname]
+
+def giteaCreateUser(orgname):
+   body = {
+	'email' : "{0}@gitea.dev".format(orgname),
+	'full_name'  : orgname,
+	'login_name'  : orgname,
+	'username'  : orgname,
+	'password'  : config['gitea']['default_userpassword'],
+	}
+
+   jsonstring = json.dumps(body)
+   r = session.post(giteaHost('admin/users'), data=jsonstring)
+
+   if r.status_code != 201:
+      return 'failed'
+
+   giteaGetUserCache["{0}".format(orgname)] = json.loads(r.text)["id"]
+   return giteaGetUserCache[orgname]
+
+def giteaCreateUserOrOrg(name,type):
+    if type == 'User':
+        return giteaCreateUser(name)
+
+    return giteaCreateOrg(name)
 
 def giteaGetUser(username):
     if username in giteaGetUserCache:

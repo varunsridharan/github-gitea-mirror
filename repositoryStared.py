@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
-from helper import getConfig,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
+from helper import getConfig,giteaSetRepoTopics,giteaSession,giteaSetRepoStar,giteaCreateRepo,ghApi,giteaCreateUserOrOrg,giteaGetUser,config
 
 def repositoryStared():
     config = getConfig()
@@ -21,7 +21,7 @@ def repositoryStared():
         gitea_uid = giteaGetUser(gitea_dest_user)
 
         if gitea_uid == 'failed':
-            gitea_uid = giteaCreateOrg(gitea_dest_user)
+            gitea_uid = giteaCreateUserOrOrg(gitea_dest_user,repo.owner.type)
 
         repo_name = "{0}".format(real_repo)
 
@@ -37,7 +37,10 @@ def repositoryStared():
         status = giteaCreateRepo(m,repo.private)
         if status != 'failed':
             topics = repo.get_topics()
+            topics.append('starred-repo')
+            topics.append('starred-{0}-repo'.format(repo_owner))
             giteaSetRepoTopics(repo_owner,repo_name,topics)
+            giteaSetRepoStar(repo_owner,repo_name,topics)
         else:
             print(repo)
 

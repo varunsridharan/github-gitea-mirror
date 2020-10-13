@@ -59,4 +59,7 @@ def gistsSource():
                 topics.append('public-{0}-gist'.format(repo_owner))
             giteaSetRepoTopics(repo_owner,m["repo_name"],topics)
 
+        if status == 'failed':
+            print(repo)
+
         print(" ")

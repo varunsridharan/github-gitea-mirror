@@ -34,7 +34,11 @@ def repositoryStared():
             "uid"               : gitea_uid,
         }
 
-        giteaCreateRepo(m,repo.private)
-        topics = repo.get_topics()
-        giteaSetRepoTopics(repo_owner,repo_name,topics)
+        status = giteaCreateRepo(m,repo.private)
+        if status != 'failed':
+            topics = repo.get_topics()
+            giteaSetRepoTopics(repo_owner,repo_name,topics)
+        else:
+            print(repo)
+
         print(" ")

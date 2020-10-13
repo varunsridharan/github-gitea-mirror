@@ -35,7 +35,11 @@ def repositoryForked():
                 "uid"               : gitea_uid,
             }
 
-            giteaCreateRepo(m,repo.private)
+        status = giteaCreateRepo(m,repo.private)
+        if status != 'failed':
             topics = repo.get_topics()
             giteaSetRepoTopics(repo_owner,repo_name,topics)
-            print(" ")
+        else:
+            print(repo)
+
+        print(" ")

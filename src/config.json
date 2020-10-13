@@ -1,0 +1,22 @@
+{
+  "github"           : {
+	"username"    : "",
+	"accesstoken" : ""
+  },
+  "gitea"            : {
+	"host"                 : "",
+	"accesstoken"          : "",
+	"username"             : "",
+	"default_userpassword" : "RY7VpBD62P7964c9$mSz%2GAM82hv68yUbHc4@Gdw8c%f^W3*qdzo$f*8a6b^rKy",
+	"gist"                 : {
+	  "prefix" : "gist",
+	  "surfix" : ""
+	}
+  },
+  "repomap"          : { },
+  "gistsSource"      : true,
+  "gistsStared"      : true,
+  "repositoryStared" : true,
+  "repositorySource" : true,
+  "repositoryForked" : true
+}

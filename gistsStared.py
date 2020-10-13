@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
-from helper import getConfig, giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser
+from helper import getConfig,giteaCreateUserOrOrg,giteaSetRepoStar, giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser
 
 def gistsStared():
     config = getConfig()
@@ -49,7 +49,7 @@ def gistsStared():
 
         status = giteaCreateRepo(m,isPrivate)
 
-        if status == 'created':
+        if status != 'failed':
             topics = ['gist','{0}-gist'.format(repo_owner),'gist-stared','{0}-stared-gist'.format(repo_owner)]
             if isPrivate:
                 topics.append('secret-gist')

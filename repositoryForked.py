@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
-from helper import getConfig,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
+from helper import getConfig,giteaCreateUserOrOrg,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
 
 def repositoryForked():
     config = getConfig()

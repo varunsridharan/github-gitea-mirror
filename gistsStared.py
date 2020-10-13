@@ -26,7 +26,7 @@ def gistsStared():
         repo_owner = repo.owner.login
 
         if gitea_uid == 'failed':
-            gitea_uid = giteaCreateOrg(repo.owner.login)
+            gitea_uid = giteaCreateUserOrOrg(repo.owner.login,repo.owner.type)
 
         if gitea_uid == 'failed':
             gitea_uid = default_gist_user
@@ -58,6 +58,7 @@ def gistsStared():
                 topics.append('public-gist')
                 topics.append('public-{0}-gist'.format(repo_owner))
             giteaSetRepoTopics(repo_owner,m["repo_name"],topics)
+            giteaSetRepoStar(repo_owner,m["repo_name"])
 
         if status == 'failed':
             print(repo)

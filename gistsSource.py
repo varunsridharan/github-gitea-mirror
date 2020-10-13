@@ -26,7 +26,7 @@ def gistsSource():
         repo_owner = repo.owner.login
 
         if gitea_uid == 'failed':
-            gitea_uid = giteaCreateOrg(repo.owner.login)
+            gitea_uid = giteaCreateUserOrOrg(repo.owner.login,repo.owner.type)
 
         if gitea_uid == 'failed':
             gitea_uid = default_gist_user

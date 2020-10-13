@@ -22,7 +22,7 @@ def repositorySource():
             gitea_uid = giteaGetUser(gitea_dest_user)
 
             if gitea_uid == 'failed':
-                gitea_uid = giteaCreateOrg(gitea_dest_user)
+                gitea_uid = giteaCreateUserOrOrg(gitea_dest_user,repo.owner.type)
 
             repo_name = "{0}".format(real_repo)
 

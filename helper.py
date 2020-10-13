@@ -42,6 +42,7 @@ def giteaSetRepoTopics(owner,repo_name,topics):
         print('     ---> Success : Repository Topics Set')
     else:
         print('     ---> Error : Unable To SetRepository Topics')
+        print(r.text,json.dumps(m))
 
 def giteaSetRepoStar(owner,repo_name,topics):
     r = session.put(giteaHost("user/starred/{0}/{1}/".format(owner,repo_name)))

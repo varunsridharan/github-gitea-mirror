@@ -40,7 +40,7 @@ def repositoryStared():
             topics.append('starred-repo')
             topics.append('starred-{0}-repo'.format(repo_owner))
             giteaSetRepoTopics(repo_owner,repo_name,topics)
-            giteaSetRepoStar(repo_owner,repo_name,topics)
+            giteaSetRepoStar(repo_owner,repo_name)
         else:
             print(repo)
 

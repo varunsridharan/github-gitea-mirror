@@ -22,7 +22,7 @@ def repositoryForked():
             gitea_uid = giteaGetUser(gitea_dest_user)
 
             if gitea_uid == 'failed':
-                gitea_uid = giteaCreateOrg(gitea_dest_user)
+                gitea_uid = giteaCreateUserOrOrg(gitea_dest_user,repo.owner.type)
 
             repo_name = "{0}".format(real_repo)
 
@@ -35,11 +35,13 @@ def repositoryForked():
                 "uid"               : gitea_uid,
             }
 
-        status = giteaCreateRepo(m,repo.private)
-        if status != 'failed':
-            topics = repo.get_topics()
-            giteaSetRepoTopics(repo_owner,repo_name,topics)
-        else:
-            print(repo)
+            status = giteaCreateRepo(m,repo.private)
+            if status != 'failed':
+                topics = repo.get_topics()
+                topics.append('forked-repo')
+                topics.append('forked-{0}-repo'.format(repo_owner))
+                giteaSetRepoTopics(repo_owner,repo_name,topics)
+            else:
+                print(repo)
 
-        print(" ")
+            print(" ")

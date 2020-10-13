@@ -2,6 +2,6 @@
 
 import gist
 import giststared
-import repositoryForked
-import repositorySource
-import repositoryStared
+import repoForked
+import repoSource
+import repoStared

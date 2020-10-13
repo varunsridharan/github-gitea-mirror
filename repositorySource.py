@@ -1,6 +1,8 @@
 import sys
+import os
 
-sys.path.insert(1, './src/')
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(1, "{0}/src/".format(THIS_FOLDER))
 
 from helper import log,getConfig
 from repositorySource import repositorySource

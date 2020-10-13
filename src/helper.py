@@ -5,10 +5,20 @@ import requests
 import json
 import sys
 import os
+from datetime import datetime
 
 giteaGetUserCache = dict()
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 config = json.loads(open(os.path.expanduser("{0}/config.json".format(THIS_FOLDER))).read().strip())
+
+def log(val):
+    if val == False:
+        print(" ")
+    else:
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print("[{0}]    {1}".format(dt_string,val))
+
 
 def getConfig():
     return config

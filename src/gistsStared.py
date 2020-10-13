@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
-from helper import getConfig,giteaCreateUserOrOrg, giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser
+from helper import log,getConfig,giteaCreateUserOrOrg,giteaSetRepoStar, giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser
 
-def gistsSource():
+def gistsStared():
     config = getConfig()
     session = giteaSession()
     gh = ghApi()
@@ -12,13 +12,13 @@ def gistsSource():
         default_gist_user = giteaCreateOrg('gist')
 
 
-    for repo in gh.get_user().get_gists():
+    for repo in gh.get_user().get_starred_gists():
         if repo.public:
             isPrivate = False
         else:
             isPrivate= True
 
-        print('Gist : {0}/{1}'.format(repo.owner.login,repo.id))
+        log('Gist : {0}/{1}'.format(repo.owner.login,repo.id))
 
         prefix = ''
         surfix = ''
@@ -50,7 +50,7 @@ def gistsSource():
         status = giteaCreateRepo(m,isPrivate)
 
         if status != 'failed':
-            topics = ['gist','{0}-gist'.format(repo_owner)]
+            topics = ['gist','{0}-gist'.format(repo_owner),'gist-stared','{0}-stared-gist'.format(repo_owner)]
             if isPrivate:
                 topics.append('secret-gist')
                 topics.append('secret-{0}-gist'.format(repo_owner))
@@ -58,8 +58,9 @@ def gistsSource():
                 topics.append('public-gist')
                 topics.append('public-{0}-gist'.format(repo_owner))
             giteaSetRepoTopics(repo_owner,m["repo_name"],topics)
+            giteaSetRepoStar(repo_owner,m["repo_name"])
 
         if status == 'failed':
-            print(repo)
+            log(repo)
 
-        print(" ")
+        log(False)

@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Security
 -->
 
-## 1.1 - 25/10/2020
+## 1.2 - 25/10/2020
 * Due to `ytdl-org/youtube-dl` **DCMAed** i was able to understand the error & fix it. 
 ```y
  Traceback (most recent call last):
@@ -35,6 +35,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
     File "/usr/lib/python3.8/site-packages/github/Requester.py", line 342, in __check
       raise self.__createException(status, responseHeaders, output)
   github.GithubException.GithubException: 451 {"message": "Repository access blocked", "block": {"reason": "dmca", "created_at": "2020-10-23T19:13:29Z", "html_url": "https://github.com/github/dmca/blob/master/2020/10/2020-10-23-RIAA.md"}}
+```
+
+## 1.1 - 13/10/2020
+### Major Improvements
+
+1. users are created as users instead of org
+2. option to run each and every mirror script seperate
+
+```
+/usr/bin/python3 $HOME/mirror/gist.py
+/usr/bin/python3 $HOME/mirror/giststared.py
+/usr/bin/python3 $HOME/mirror/repoSource.py
+/usr/bin/python3 $HOME/mirror/repoStared.py
+/usr/bin/python3 $HOME/mirror/repoForked.py
 ```
 
 ## 1.0 - 12/10/2020

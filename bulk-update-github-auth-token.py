@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+#################################################################
+### This file can be used to bulk update                      ###
+### all repositories with new auth token                      ###
+### Because Gitea Currently Dose not provide a option for it. ###
+### Usage : python3 bulk-update-github-auth-token.py          ###
+#################################################################
+
 import glob
 from pathlib import Path
 

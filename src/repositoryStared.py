@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
 from helper import log,getConfig,giteaSetRepoTopics,giteaSession,giteaSetRepoStar,giteaCreateRepo,ghApi,giteaCreateUserOrOrg,giteaGetUser,config
+from github import GithubException
 
 def repositoryStared():
     config = getConfig()
@@ -36,11 +37,14 @@ def repositoryStared():
 
         status = giteaCreateRepo(m,repo.private)
         if status != 'failed':
-            topics = repo.get_topics()
-            topics.append('starred-repo')
-            topics.append('starred-{0}-repo'.format(repo_owner))
-            giteaSetRepoTopics(repo_owner,repo_name,topics)
-            giteaSetRepoStar(repo_owner,repo_name)
+            try:
+                topics = repo.get_topics()
+                topics.append('starred-repo')
+                topics.append('starred-{0}-repo'.format(repo_owner))
+                giteaSetRepoTopics(repo_owner,repo_name,topics)
+                giteaSetRepoStar(repo_owner,repo_name)
+            except GithubException as e:
+                print(e)
         else:
             log(repo)
 

@@ -44,7 +44,9 @@ def repositoryStared():
                 giteaSetRepoTopics(repo_owner,repo_name,topics)
                 giteaSetRepoStar(repo_owner,repo_name)
             except GithubException as e:
+                print("###[error]     ---> Github API Error Occured !")
                 print(e)
+                print(" ")
         else:
             log(repo)
 

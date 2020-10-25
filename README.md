@@ -57,7 +57,7 @@ Or you can download the source code and install it where ever you need
 ## Cron Setup
 1. Run `crontab -e`
 2. `mkdir $HOME/mirrorLogs -p`
-3. `/usr/bin/python3 $HOME/github-to-gitea-mirror/mirror.py > $HOME/mirrorLogs/date +\%Y-\%m-\%d-\%H-\%M-\%S`.log 2>&1`
+3. `/usr/bin/python3 $HOME/github-to-gitea-mirror/mirror.py > $HOME/mirrorLogs/`date +\%Y-\%m-\%d-\%H-\%M-\%S`.log 2>&1`
 
 ---
 

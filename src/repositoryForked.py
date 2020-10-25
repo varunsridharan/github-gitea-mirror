@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
 from helper import log,getConfig,giteaCreateUserOrOrg,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
+from github import GithubException
 
 def repositoryForked():
     config = getConfig()
@@ -37,10 +38,15 @@ def repositoryForked():
 
             status = giteaCreateRepo(m,repo.private)
             if status != 'failed':
-                topics = repo.get_topics()
-                topics.append('forked-repo')
-                topics.append('forked-{0}-repo'.format(repo_owner))
-                giteaSetRepoTopics(repo_owner,repo_name,topics)
+                try:
+                    topics = repo.get_topics()
+                    topics.append('forked-repo')
+                    topics.append('forked-{0}-repo'.format(repo_owner))
+                    giteaSetRepoTopics(repo_owner,repo_name,topics)
+                except GithubException as e:
+                    print("###[error] ---> Github API Error Occured !")
+                    print(e)
+                    print(" ")
             else:
                 log(repo)
 

@@ -1,13 +1,13 @@
 {
   "github"           : {
-	"username"    : "",
-	"accesstoken" : ""
+	"username"    : "varunsridharan",
+	"accesstoken" : "216eea386ac155d4a651daf21707fad5c5e89852"
   },
   "gitea"            : {
-	"host"                 : "",
-	"accesstoken"          : "",
-	"username"             : "",
-	"default_userpassword" : "RY7VpBD62P7964c9$mSz%2GAM82hv68yUbHc4@Gdw8c%f^W3*qdzo$f*8a6b^rKy",
+	"host"                 : "http://64.225.86.99",
+	"accesstoken"          : "1695801a477a4c3e2c8e682eb5dc60fb41726d55",
+	"username"             : "varunsridharan",
+	"default_userpassword" : "RY7VpBD62P7964c4c3e2c8e$mSz%2GAM82hv68yUbHc4@Gdw8c%f^W3*qd4c3e2c8ef*8a6b^rKy",
 	"gist"                 : {
 	  "prefix" : "gist",
 	  "surfix" : ""

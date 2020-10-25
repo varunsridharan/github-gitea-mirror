@@ -19,5 +19,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Security
 -->
+
+## 1.1 - 25/10/2020
+* Due to `ytdl-org/youtube-dl` **DCMAed** i was able to understand the error & fix it. 
+```y
+ Traceback (most recent call last):
+    File "./mirror-handler/repoStared.py", line 14, in <module>
+      repositoryStared()
+    File "/github/workspace/mirror-handler/src/repositoryStared.py", line 39, in repositoryStared
+      topics = repo.get_topics()
+    File "/usr/lib/python3.8/site-packages/github/Repository.py", line 2982, in get_topics
+      headers, data = self._requester.requestJsonAndCheck(
+    File "/usr/lib/python3.8/site-packages/github/Requester.py", line 317, in requestJsonAndCheck
+      return self.__check(
+    File "/usr/lib/python3.8/site-packages/github/Requester.py", line 342, in __check
+      raise self.__createException(status, responseHeaders, output)
+  github.GithubException.GithubException: 451 {"message": "Repository access blocked", "block": {"reason": "dmca", "created_at": "2020-10-23T19:13:29Z", "html_url": "https://github.com/github/dmca/blob/master/2020/10/2020-10-23-RIAA.md"}}
+```
+
 ## 1.0 - 12/10/2020
 **First Release**

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
 from helper import log,getConfig,giteaCreateUserOrOrg, giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser
+from github import GithubException
 
 def gistsSource():
     config = getConfig()
@@ -50,14 +51,19 @@ def gistsSource():
         status = giteaCreateRepo(m,isPrivate)
 
         if status != 'failed':
-            topics = ['gist','{0}-gist'.format(repo_owner)]
-            if isPrivate:
-                topics.append('secret-gist')
-                topics.append('secret-{0}-gist'.format(repo_owner))
-            else:
-                topics.append('public-gist')
-                topics.append('public-{0}-gist'.format(repo_owner))
-            giteaSetRepoTopics(repo_owner,m["repo_name"],topics)
+            try:
+                topics = ['gist','{0}-gist'.format(repo_owner)]
+                if isPrivate:
+                    topics.append('secret-gist')
+                    topics.append('secret-{0}-gist'.format(repo_owner))
+                else:
+                    topics.append('public-gist')
+                    topics.append('public-{0}-gist'.format(repo_owner))
+                giteaSetRepoTopics(repo_owner,m["repo_name"],topics)
+            except GithubException as e:
+                print("###[error] ---> Github API Error Occured !")
+                print(e)
+                print(" ")
 
         if status == 'failed':
             log(repo)

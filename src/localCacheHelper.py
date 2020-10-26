@@ -10,7 +10,7 @@ config = getConfig()
 def writeLocalCache(content):
     try:
         with open(config['local_cache']['file_path'], 'w') as file:
-            file.write(json.dumps(content))
+            file.write(json.dumps(content, indent=4, sort_keys=True))
     except:
         logError('Unable To Save Local Cache !')
 

@@ -11,6 +11,13 @@ giteaGetUserCache = dict()
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 config = json.loads(open(os.path.expanduser("{0}/config.json".format(THIS_FOLDER))).read().strip())
 
+def logError(val):
+    log('')
+    log('################# ERROR ####################')
+    log(val)
+    log('################# ERROR ####################')
+    log('')
+
 def log(val):
     if val == False:
         print(" ")
@@ -128,3 +135,62 @@ def giteaGetUser(username):
         return 'failed'
     giteaGetUserCache["{0}".format(username)] = json.loads(r.text)["id"]
     return giteaGetUserCache[username]
+
+def giteaGetUserRepos(user_uid):
+    loopCount = 1
+    results = dict()
+
+    while loopCount != 0 :
+        r = session.get(giteaHost('repos/search?uid={0}&page={1}&limit=50'.format(user_uid,loopCount)))
+
+        if r.status_code != 200:
+            loopCount = 0
+            break
+
+        data = json.loads(r.text)
+
+        if data['ok'] == True:
+            if len(data['data']) == 0:
+                loopCount = 0
+                break
+            else:
+                if len(results) == 0:
+                    results = data['data']
+                else:
+                    results = results + data['data']
+
+        loopCount += 1
+
+    return results
+
+
+def giteaGetAllUsersOrgs(type):
+    loopCount = 1
+    results = dict()
+
+    if type == 'users':
+        type = 'admin/users'
+    else:
+        type = 'orgs'
+
+    while loopCount != 0 :
+        r = session.get(giteaHost('{0}?page={1}&limit=50'.format(type,loopCount)))
+
+        if r.status_code != 200:
+            loopCount = 0
+            break
+
+        data = json.loads(r.text)
+
+        if len(data) == 0:
+            loopCount = 0
+            break
+        else:
+            if len(results) == 0:
+                results = data
+            else:
+                results = results + data
+
+        loopCount += 1
+
+    return results

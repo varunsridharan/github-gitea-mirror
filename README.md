@@ -48,6 +48,12 @@ Or you can download the source code and install it where ever you need
 | `repositoryStared` | set to true to mirror all Repository Stared By You | 
 | `repositorySource` | set to true to mirror all Repository Created By You | 
 | `repositoryForked` | set to true to mirror all Repository Forked By You | 
+| - | - |
+| `local_cache.enabled` | Set to **true** to store all repostiory slugs from gitea as json |
+| `local_cache.file_path` | Custom Path to store json file |
+
+> Local Cache can come handly when running this script via cron 
+> which reduces api request your selfhosted gitea instance
 
 ### Run cmd & Wait
 

@@ -2,6 +2,7 @@
 # https://github.com/PyGithub/PyGithub
 from helper import log,getConfig,giteaCreateUserOrOrg,giteaSetRepoStar, giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser
 from github import GithubException
+from localCacheHelper import giteaExistsRepos,saveLocalCache
 
 def gistsStared():
     config = getConfig()
@@ -52,6 +53,7 @@ def gistsStared():
 
         if status != 'failed':
             try:
+                giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo.id)] = "{0}/{1}".format(repo_owner,m['repo_name'])
                 topics = ['gist','{0}-gist'.format(repo_owner),'gist-stared','{0}-stared-gist'.format(repo_owner)]
                 if isPrivate:
                     topics.append('secret-gist')
@@ -69,3 +71,4 @@ def gistsStared():
             log(repo)
 
         log(False)
+    saveLocalCache()

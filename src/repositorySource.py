@@ -2,6 +2,7 @@
 # https://github.com/PyGithub/PyGithub
 from helper import log,getConfig,giteaCreateUserOrOrg,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
 from github import GithubException
+from localCacheHelper import giteaExistsRepos,saveLocalCache
 
 def repositorySource():
     config = getConfig()
@@ -39,6 +40,7 @@ def repositorySource():
         status = giteaCreateRepo(m,repo.private)
         if status != 'failed':
             try:
+                giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
                 topics = repo.get_topics()
                 giteaSetRepoTopics(repo_owner,repo_name,topics)
             except GithubException as e:
@@ -49,3 +51,4 @@ def repositorySource():
             log(repo)
 
         log(False)
+    saveLocalCache()

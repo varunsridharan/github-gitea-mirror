@@ -2,6 +2,7 @@
 # https://github.com/PyGithub/PyGithub
 from helper import log,getConfig,giteaCreateUserOrOrg,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
 from github import GithubException
+from localCacheHelper import giteaExistsRepos,saveLocalCache
 
 def repositoryForked():
     config = getConfig()
@@ -39,6 +40,7 @@ def repositoryForked():
             status = giteaCreateRepo(m,repo.private)
             if status != 'failed':
                 try:
+                    giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
                     topics = repo.get_topics()
                     topics.append('forked-repo')
                     topics.append('forked-{0}-repo'.format(repo_owner))
@@ -51,3 +53,4 @@ def repositoryForked():
                 log(repo)
 
             log(False)
+    saveLocalCache()

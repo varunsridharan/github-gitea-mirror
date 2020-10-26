@@ -2,6 +2,7 @@
 # https://github.com/PyGithub/PyGithub
 from helper import log,getConfig,giteaSetRepoTopics,giteaSession,giteaSetRepoStar,giteaCreateRepo,ghApi,giteaCreateUserOrOrg,giteaGetUser,config
 from github import GithubException
+from localCacheHelper import giteaExistsRepos,saveLocalCache
 
 def repositoryStared():
     config = getConfig()
@@ -38,6 +39,7 @@ def repositoryStared():
         status = giteaCreateRepo(m,repo.private)
         if status != 'failed':
             try:
+                giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
                 topics = repo.get_topics()
                 topics.append('starred-repo')
                 topics.append('starred-{0}-repo'.format(repo_owner))
@@ -51,3 +53,4 @@ def repositoryStared():
             log(repo)
 
         log(False)
+    saveLocalCache()

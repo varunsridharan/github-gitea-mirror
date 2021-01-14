@@ -54,5 +54,5 @@ def repositoryStared():
             log(repo)
 
         log(False)
-        time.sleep(100)
+        time.sleep(0.1)
     saveLocalCache()

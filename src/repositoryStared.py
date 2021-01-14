@@ -3,6 +3,7 @@
 from helper import log,getConfig,giteaSetRepoTopics,giteaSession,giteaSetRepoStar,giteaCreateRepo,ghApi,giteaCreateUserOrOrg,giteaGetUser,config
 from github import GithubException
 from localCacheHelper import giteaExistsRepos,saveLocalCache
+import time
 
 def repositoryStared():
     config = getConfig()
@@ -10,7 +11,11 @@ def repositoryStared():
     session = giteaSession()
     gh = ghApi()
 
-    for repo in gh.get_user().get_starred():
+    for i,repo in gh.get_user().get_starred():
+        if (i+1)%50 == 0:
+            log('~~ Taking A Break ~~')
+            time.sleep(1000)
+
         real_repo = repo.full_name.split('/')[1]
         gitea_dest_user = repo.owner.login
         repo_owner=repo.owner.login

@@ -11,11 +11,7 @@ def repositoryStared():
     session = giteaSession()
     gh = ghApi()
 
-    for i,repo in gh.get_user().get_starred():
-        if (i+1)%50 == 0:
-            log('~~ Taking A Break ~~')
-            time.sleep(1000)
-
+    for repo in gh.get_user().get_starred():
         real_repo = repo.full_name.split('/')[1]
         gitea_dest_user = repo.owner.login
         repo_owner=repo.owner.login
@@ -58,4 +54,5 @@ def repositoryStared():
             log(repo)
 
         log(False)
+        time.sleep(100)
     saveLocalCache()

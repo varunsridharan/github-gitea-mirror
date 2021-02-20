@@ -7,7 +7,7 @@ Simple Python Script To Mirror Repository / Gist From Github To Gitea
 ## Why ?
 I am a [data hoarder.](https://www.reddit.com/r/DataHoarder/)
 
-I am not migrating away from GitHub because I see no reason to: the platform is very useful to me, and I’d not like to loose it. What I’m trying to accomplish is a fail-safe in case something happens to GitHub which would make me loose access, be that voluntarily or involuntarily.
+I am not migrating away from GitHub because I see no reason to: the platform is very useful to me, and I’d not like to lose it. What I’m trying to accomplish is a fail-safe in case something happens to GitHub which would make me lose access, be that voluntarily or involuntarily.
 
 ## ✅  Requirements
 1. Python3 -- `sudo apt-get install python3`

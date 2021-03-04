@@ -3,14 +3,17 @@
 from helper import log,getConfig,giteaSetRepoTopics,giteaSession,giteaSetRepoStar,giteaCreateRepo,ghApi,giteaCreateUserOrOrg,giteaGetUser,config
 from github import GithubException
 from localCacheHelper import giteaExistsRepos,saveLocalCache
+import time
 
 def repositoryStared():
     config = getConfig()
     repo_map = config['repomap']
     session = giteaSession()
     gh = ghApi()
+    loop_count = 0
 
     for repo in gh.get_user().get_starred():
+        loop_count = loop_count + 1
         real_repo = repo.full_name.split('/')[1]
         gitea_dest_user = repo.owner.login
         repo_owner=repo.owner.login
@@ -52,5 +55,11 @@ def repositoryStared():
         else:
             log(repo)
 
-        log(False)
+        if loop_count % 50 == 0:
+            log(False)
+            log('Time To Sleep For 5 Seconds')
+            log(False)
+            time.sleep(5)
+        else:
+            log(False)
     saveLocalCache()

@@ -3,15 +3,18 @@
 from helper import log,getConfig,giteaCreateUserOrOrg,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
 from github import GithubException
 from localCacheHelper import giteaExistsRepos,saveLocalCache
+import time
 
 def repositoryForked():
     config = getConfig()
     repo_map = config['repomap']
     session = giteaSession()
     gh = ghApi()
+    loop_count = 0
 
     for repo in gh.get_user().get_repos():
         if repo.fork:
+            loop_count = loop_count + 1
             real_repo = repo.full_name.split('/')[1]
             gitea_dest_user = repo.owner.login
             repo_owner=repo.owner.login
@@ -52,5 +55,12 @@ def repositoryForked():
             else:
                 log(repo)
 
-            log(False)
+
+            if loop_count % 50 == 0:
+                log(False)
+                log('Time To Sleep For 5 Seconds')
+                log(False)
+                time.sleep(5)
+            else:
+                log(False)
     saveLocalCache()

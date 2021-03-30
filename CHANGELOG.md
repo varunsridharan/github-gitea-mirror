@@ -20,6 +20,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Security
 -->
 
+## 1.3 - 30/03/2021
+* Repository Topics Are Updated Only if new repository created
+* Added Sleep Timer for every 50 loops to avoid getting caught in github api limits
+* Minor code improvements. 
+
 ## 1.2 - 25/10/2020
 * Due to `ytdl-org/youtube-dl` **DCMAed** i was able to understand the error & fix it. 
 ```y

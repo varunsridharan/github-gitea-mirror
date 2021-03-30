@@ -43,9 +43,10 @@ def repositorySource():
         status = giteaCreateRepo(m,repo.private)
         if status != 'failed':
             try:
-                giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
-                topics = repo.get_topics()
-                giteaSetRepoTopics(repo_owner,repo_name,topics)
+                if status != 'exists':
+                    giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
+                    topics = repo.get_topics()
+                    giteaSetRepoTopics(repo_owner,repo_name,topics)
             except GithubException as e:
                 print("###[error] ---> Github API Error Occured !")
                 print(e)

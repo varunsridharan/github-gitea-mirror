@@ -53,15 +53,16 @@ def gistsSource():
 
         if status != 'failed':
             try:
-                giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo.id)] = "{0}/{1}".format(repo_owner,m['repo_name'])
-                topics = ['gist','{0}-gist'.format(repo_owner)]
-                if isPrivate:
-                    topics.append('secret-gist')
-                    topics.append('secret-{0}-gist'.format(repo_owner))
-                else:
-                    topics.append('public-gist')
-                    topics.append('public-{0}-gist'.format(repo_owner))
-                giteaSetRepoTopics(repo_owner,m["repo_name"],topics)
+                if status != 'exists':
+                    giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo.id)] = "{0}/{1}".format(repo_owner,m['repo_name'])
+                    topics = ['gist','{0}-gist'.format(repo_owner)]
+                    if isPrivate:
+                        topics.append('secret-gist')
+                        topics.append('secret-{0}-gist'.format(repo_owner))
+                    else:
+                        topics.append('public-gist')
+                        topics.append('public-{0}-gist'.format(repo_owner))
+                    giteaSetRepoTopics(repo_owner,m["repo_name"],topics)
             except GithubException as e:
                 print("###[error] ---> Github API Error Occured !")
                 print(e)

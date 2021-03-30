@@ -42,12 +42,13 @@ def repositoryStared():
         status = giteaCreateRepo(m,repo.private)
         if status != 'failed':
             try:
-                giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
-                topics = repo.get_topics()
-                topics.append('starred-repo')
-                topics.append('starred-{0}-repo'.format(repo_owner))
-                giteaSetRepoTopics(repo_owner,repo_name,topics)
-                giteaSetRepoStar(repo_owner,repo_name)
+                if status != 'exists':
+                    giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
+                    topics = repo.get_topics()
+                    topics.append('starred-repo')
+                    topics.append('starred-{0}-repo'.format(repo_owner))
+                    giteaSetRepoTopics(repo_owner,repo_name,topics)
+                    giteaSetRepoStar(repo_owner,repo_name)
             except GithubException as e:
                 print("###[error] ---> Github API Error Occured !")
                 print(e)

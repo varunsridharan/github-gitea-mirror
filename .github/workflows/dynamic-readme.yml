@@ -1,0 +1,59 @@
+name: "📄  Dynamic ReadME"
+
+env:
+  VS_WORKFLOW_TYPE: "dynamic-readme"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
+
+jobs:
+  update_readme:
+    name: "Render & Update ReadME"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📥  Fetching Repository Contents"
+        uses: actions/checkout@main
+
+      - name: "💾  Github Repository Metadata"
+        uses: varunsridharan/action-repository-meta@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "💫  VS Utility"
+        uses: varunsridharan/action-vs-utility@main
+
+      - name: "⚡  Repository - Before Hook"
+        run: |
+          echo " "
+          if [ -f $VS_BEFORE_HOOK_FILE_LOCATION ]; then
+            echo "✅ Before Hook File Found : $VS_BEFORE_HOOK_FILE_LOCATION"
+            sh $VS_BEFORE_HOOK_FILE_LOCATION
+          else
+            echo "⚠️ No Before Hook File Found : $VS_BEFORE_HOOK_FILE_LOCATION"
+          fi
+          echo " "
+
+      - name: "💫  Update README.md"
+        uses: "varunsridharan/action-dynamic-readme@main"
+        with:
+          GLOBAL_TEMPLATE_REPOSITORY: varunsridharan/varunsridharan@main/readme-templates
+          files: |
+            README.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "⚡  Repository - After Hook"
+        run: |
+          echo " "
+          if [ -f $VS_AFTER_HOOK_FILE_LOCATION ]; then
+            echo "✅ After Hook File Found : $VS_AFTER_HOOK_FILE_LOCATION"
+            sh $VS_AFTER_HOOK_FILE_LOCATION
+          else
+            echo "⚠️ No After Hook File Found : $VS_AFTER_HOOK_FILE_LOCATION"
+          fi
+          echo " "

@@ -69,14 +69,17 @@ def giteaSetRepoStar(owner,repo_name):
     else:
         print('     ---> Error : Unable To Star The Repository')
 
-def giteaCreateRepo(data,isPrivate):
+def giteaCreateRepo(data,isPrivate,isRepository):
     if isPrivate:
         data["auth_username"]  = config['github']['username']
+	data["auth_password"]  = "{0}".format(config['github']['accesstoken'])
+
+    if isRepository:
+        data["wiki"] = True
+	data["auth_token"]  = "{0}".format(config['github']['accesstoken'])
         
 
     data["service"] = 'github'
-    data["wiki"] = True
-    data["auth_password"]  = "{0}".format(config['github']['accesstoken'])
 
     jsonstring = json.dumps(data)
     r = session.post(giteaHost('repos/migrate'), data=jsonstring)

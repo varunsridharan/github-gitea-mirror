@@ -49,7 +49,7 @@ def gistsStared():
             "uid"               : gitea_uid,
         }
 
-        status = giteaCreateRepo(m,isPrivate,True)
+        status = giteaCreateRepo(m,isPrivate,False)
 
         if status != 'failed':
             try:

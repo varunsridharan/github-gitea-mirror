@@ -74,6 +74,7 @@ def giteaCreateRepo(data,isPrivate):
         data["auth_username"]  = config['github']['username']
         data["auth_password"]  = "{0}".format(config['github']['accesstoken'])
 
+    data["service"] = 'github'
     jsonstring = json.dumps(data)
     r = session.post(giteaHost('repos/migrate'), data=jsonstring)
 

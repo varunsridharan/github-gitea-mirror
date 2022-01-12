@@ -72,11 +72,11 @@ def giteaSetRepoStar(owner,repo_name):
 def giteaCreateRepo(data,isPrivate,isRepository):
     if isPrivate:
         data["auth_username"]  = config['github']['username']
-	data["auth_password"]  = "{0}".format(config['github']['accesstoken'])
+        data["auth_password"]  = "{0}".format(config['github']['accesstoken'])
 
     if isRepository:
         data["wiki"] = True
-	data["auth_token"]  = "{0}".format(config['github']['accesstoken'])
+        data["auth_token"]  = "{0}".format(config['github']['accesstoken'])
         
 
     data["service"] = 'github'

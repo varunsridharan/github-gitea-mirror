@@ -40,7 +40,7 @@ def repositoryForked():
                 "uid"               : gitea_uid,
             }
 
-            status = giteaCreateRepo(m,repo.private)
+            status = giteaCreateRepo(m,repo.private,True)
             if status != 'failed':
                 try:
                     if status != 'exists':

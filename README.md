@@ -35,31 +35,32 @@ Or you can download the source code and install it where ever you need
 | --- | --- |
 | `github.username` | Your Github Username |
 | `github.accesstoken` | Your Github Account's Personal Access Token |
-| - | - | 
+| - | - |
 | `gitea.host` | Selfhosted Gitea URL without `/` at the end |
 | `gitea.accesstoken` | Your Personal Access Token |
 | `gitea.username` | Account User Name |
 | `gitea.gist.prefix` | Custom Prefix For Repository When Mirroring Gists |
 | `gitea.gist.surfix` | Custom Prefix For Repository When Mirroring Gists |
-| - | - | 
-| `repomap` | Remap A Repository To Diff User | 
-| `gistsSource` | set to true to mirror all Gists Created By You| 
-| `gistsStared` | set to true to mirror all Gists Stared By You| 
-| `repositoryStared` | set to true to mirror all Repository Stared By You | 
-| `repositorySource` | set to true to mirror all Repository Created By You | 
-| `repositoryForked` | set to true to mirror all Repository Forked By You | 
+| - | - |
+| `repomap` | Remap A Repository To Diff User |
+| `blacklist` | A list of glob-expression on github full repository names to skip |
+| `gistsSource` | set to true to mirror all Gists Created By You|
+| `gistsStared` | set to true to mirror all Gists Stared By You|
+| `repositoryStared` | set to true to mirror all Repository Stared By You |
+| `repositorySource` | set to true to mirror all Repository Created By You |
+| `repositoryForked` | set to true to mirror all Repository Forked By You |
 | - | - |
 | `local_cache.enabled` | Set to **true** to store all repostiory slugs from gitea as json |
 | `local_cache.file_path` | Custom Path to store json file |
 
-> Local Cache can come handly when running this script via cron 
+> Local Cache can come handly when running this script via cron
 > which reduces api request your selfhosted gitea instance
 
 ### Run cmd & Wait
 
     $ python3 mirror.py
-    
-    
+
+
 ## Cron Setup
 1. Run `crontab -e`
 2. `mkdir $HOME/mirrorLogs -p`

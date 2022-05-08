@@ -14,7 +14,6 @@
 	}
   },
   "repomap"          : { },
-  "blacklist"        : [ ],
   "gistsSource"      : true,
   "gistsStared"      : true,
   "repositoryStared" : true,

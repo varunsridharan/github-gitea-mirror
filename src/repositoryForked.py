@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # https://github.com/PyGithub/PyGithub
-from helper import isBlacklistedRepository, log,getConfig,giteaCreateUserOrOrg,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
+from helper import log,getConfig,giteaCreateUserOrOrg,giteaSetRepoTopics,giteaSession,giteaCreateRepo,ghApi,giteaCreateOrg,giteaGetUser,config
 from github import GithubException
 from localCacheHelper import giteaExistsRepos,saveLocalCache
 import time
@@ -20,10 +20,6 @@ def repositoryForked():
             repo_owner=repo.owner.login
 
             log('Forked Repository : {0}'.format(repo.full_name))
-
-            if isBlacklistedRepository(repo.full_name):
-                print("     ---> Warning : Repository Matches Blacklist")
-                continue
 
             if real_repo in repo_map:
                 gitea_dest_user = repo_map[real_repo]

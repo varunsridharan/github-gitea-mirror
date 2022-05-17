@@ -205,7 +205,11 @@ def giteaGetAllUsersOrgs(type):
 
 
 def isBlacklistedRepository(full_name):
-    for pattern in config['blacklist']:
+    blacklist = config.get('blacklist', [])
+    if isinstance(blacklist, str):
+        blacklist = [blacklist]
+
+    for pattern in blacklist:
         if fnmatch.fnmatch(full_name, pattern):
             return True
     return False

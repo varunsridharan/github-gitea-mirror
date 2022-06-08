@@ -5,6 +5,7 @@ import requests
 import json
 import sys
 import os
+import fnmatch
 from datetime import datetime
 
 giteaGetUserCache = dict()
@@ -78,9 +79,9 @@ def giteaCreateRepo(data,isPrivate,isRepository):
         data["service"] = 'github'
         data["wiki"] = True
         data["auth_token"]  = "{0}".format(config['github']['accesstoken'])
-        
 
-    
+
+
     jsonstring = json.dumps(data)
     r = session.post(giteaHost('repos/migrate'), data=jsonstring)
 
@@ -201,3 +202,14 @@ def giteaGetAllUsersOrgs(type):
         loopCount += 1
 
     return results
+
+
+def isBlacklistedRepository(full_name):
+    blacklist = config.get('blacklist', [])
+    if isinstance(blacklist, str):
+        blacklist = [blacklist]
+
+    for pattern in blacklist:
+        if fnmatch.fnmatch(full_name, pattern):
+            return True
+    return False

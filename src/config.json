@@ -15,9 +15,9 @@
   },
   "repomap"          : { },
   "blacklist"        : [ ],
-  "gistsSource"      : true,
-  "gistsStared"      : true,
-  "repositoryStared" : true,
+  "gistsSource"      : false,
+  "gistsStared"      : false,
+  "repositoryStared" : false,
   "repositorySource" : true,
   "repositoryForked" : true,
   "local_cache"      : {

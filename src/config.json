@@ -19,5 +19,9 @@
   "gistsStared"      : true,
   "repositoryStared" : true,
   "repositorySource" : true,
-  "repositoryForked" : true
+  "repositoryForked" : true,
+  "local_cache"      : {
+	"enabled" 		: true,
+	"file_path"		: "log.json"
+  }
 }

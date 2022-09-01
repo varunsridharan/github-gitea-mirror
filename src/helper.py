@@ -54,7 +54,7 @@ def giteaSetRepoTopics(owner,repo_name,topics):
         "topics":topics,
     }
 
-    r = session.put(giteaHost("repos/{0}/{1}/topics".format(owner,repo_name)), data=json.dumps(m))
+    r = session.put("https://" + giteaHost("repos/{0}/{1}/topics".format(owner,repo_name)), data=json.dumps(m))
 
     if r.status_code == 204:
         print('     ---> Success : Repository Topics Set')
@@ -63,7 +63,7 @@ def giteaSetRepoTopics(owner,repo_name,topics):
         print(r.text,json.dumps(m))
 
 def giteaSetRepoStar(owner,repo_name):
-    r = session.put(giteaHost("user/starred/{0}/{1}/".format(owner,repo_name)))
+    r = session.put("https://" + giteaHost("user/starred/{0}/{1}/".format(owner,repo_name)))
 
     if r.status_code == 204:
         print('     ---> Success : Repository Starred')
@@ -83,7 +83,7 @@ def giteaCreateRepo(data,isPrivate,isRepository):
 
 
     jsonstring = json.dumps(data)
-    r = session.post(giteaHost('repos/migrate'), data=jsonstring)
+    r = session.post("https://" + giteaHost('repos/migrate'), data=jsonstring)
 
     if r.status_code == 201:
         print("     ---> Success : Repository Created")
@@ -102,7 +102,7 @@ def giteaCreateOrg(orgname):
    }
 
    jsonstring = json.dumps(body)
-   r = session.post(giteaHost('orgs/'), data=jsonstring)
+   r = session.post("https://" + giteaHost('orgs/'), data=jsonstring)
 
    if r.status_code != 201:
       return 'failed'
@@ -120,7 +120,7 @@ def giteaCreateUser(orgname):
 	}
 
    jsonstring = json.dumps(body)
-   r = session.post(giteaHost('admin/users'), data=jsonstring)
+   r = session.post("https://" + giteaHost('admin/users'), data=jsonstring)
 
    if r.status_code != 201:
       return 'failed'
@@ -138,7 +138,7 @@ def giteaGetUser(username):
     if username in giteaGetUserCache:
         return giteaGetUserCache[username]
 
-    r = session.get(giteaHost('users/{0}'.format(username)))
+    r = session.get("https://" + giteaHost('users/{0}'.format(username)))
     if r.status_code != 200:
         return 'failed'
     giteaGetUserCache["{0}".format(username)] = json.loads(r.text)["id"]
@@ -149,7 +149,7 @@ def giteaGetUserRepos(user_uid):
     results = dict()
 
     while loopCount != 0 :
-        r = session.get(giteaHost('repos/search?uid={0}&page={1}&limit=50'.format(user_uid,loopCount)))
+        r = session.get("https://" + giteaHost('repos/search?uid={0}&page={1}&limit=50'.format(user_uid,loopCount)))
 
         if r.status_code != 200:
             loopCount = 0
@@ -182,7 +182,7 @@ def giteaGetAllUsersOrgs(type):
         type = 'orgs'
 
     while loopCount != 0 :
-        r = session.get(giteaHost('{0}?page={1}&limit=50'.format(type,loopCount)))
+        r = session.get("https://" + giteaHost('{0}?page={1}&limit=50'.format(type,loopCount)))
 
         if r.status_code != 200:
             loopCount = 0

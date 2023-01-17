@@ -67,9 +67,9 @@ def repositoryStared():
         else:
             log(repo)
             
-        if loop_count % 10 == 0:
+        if loop_count % 50 == 0:
             log(False)
-            log('Time To Sleep For 10 Seconds')
+            log('Time To Sleep For 5 Seconds')
             log(False)
             time.sleep(5)
         else:

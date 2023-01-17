@@ -14,11 +14,18 @@ def repositoryStared():
 
     for repo in gh.get_user().get_starred():
         log('⭐  Star\'ed Repository : {0}'.format(repo.full_name))
-        log(repo)
         loop_count = loop_count + 1
-        real_repo = repo.full_name.split('/')[1]
-        gitea_dest_user = repo.owner.login
-        repo_owner=repo.owner.login   
+        
+        try:
+            real_repo = repo.full_name.split('/')[1]
+            gitea_dest_user = repo.owner.login
+            repo_owner=repo.owner.login   
+        except:
+            log("[error] Github User / Repository Not Exists")
+            continue
+        
+        
+        
 
         if isBlacklistedRepository(repo.full_name):
             print("     ---> Warning : Repository Matches Blacklist")

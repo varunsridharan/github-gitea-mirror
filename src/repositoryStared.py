@@ -14,7 +14,7 @@ def repositoryStared():
 
     for repo in gh.get_user().get_starred():
         log('⭐  Star\'ed Repository : {0}'.format(repo.full_name))
-        
+        log(repo)
         loop_count = loop_count + 1
         real_repo = repo.full_name.split('/')[1]
         gitea_dest_user = repo.owner.login

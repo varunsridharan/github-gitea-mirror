@@ -13,12 +13,12 @@ def repositoryStared():
     loop_count = 0
 
     for repo in gh.get_user().get_starred():
+        log('⭐  Star\'ed Repository : {0}'.format(repo.full_name))
+        
         loop_count = loop_count + 1
         real_repo = repo.full_name.split('/')[1]
         gitea_dest_user = repo.owner.login
-        repo_owner=repo.owner.login
-
-        log('⭐  Star\'ed Repository : {0}'.format(repo.full_name))
+        repo_owner=repo.owner.login   
 
         if isBlacklistedRepository(repo.full_name):
             print("     ---> Warning : Repository Matches Blacklist")

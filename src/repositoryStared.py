@@ -26,46 +26,50 @@ def repositoryStared():
         
         
         
+		try:
+			if isBlacklistedRepository(repo.full_name):
+				print("     ---> Warning : Repository Matches Blacklist")
+				continue
 
-        if isBlacklistedRepository(repo.full_name):
-            print("     ---> Warning : Repository Matches Blacklist")
-            continue
+			if real_repo in repo_map:
+				gitea_dest_user = repo_map[real_repo]
 
-        if real_repo in repo_map:
-            gitea_dest_user = repo_map[real_repo]
+			gitea_uid = giteaGetUser(gitea_dest_user)
 
-        gitea_uid = giteaGetUser(gitea_dest_user)
+			if gitea_uid == 'failed':
+				gitea_uid = giteaCreateUserOrOrg(gitea_dest_user,repo.owner.type)
 
-        if gitea_uid == 'failed':
-            gitea_uid = giteaCreateUserOrOrg(gitea_dest_user,repo.owner.type)
+			repo_name = "{0}".format(real_repo)
 
-        repo_name = "{0}".format(real_repo)
+			m = {
+				"repo_name"         : repo_name,
+				"description"       : (repo.description or "not really known")[:255],
+				"clone_addr"        : repo.clone_url,
+				"mirror"            : True,
+				"private"           : repo.private,
+				"uid"               : gitea_uid,
+			}
 
-        m = {
-            "repo_name"         : repo_name,
-            "description"       : (repo.description or "not really known")[:255],
-            "clone_addr"        : repo.clone_url,
-            "mirror"            : True,
-            "private"           : repo.private,
-            "uid"               : gitea_uid,
-        }
-
-        status = giteaCreateRepo(m,repo.private,True)
-        if status != 'failed':
-            try:
-                if status != 'exists':
-                    giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
-                    topics = repo.get_topics()
-                    topics.append('starred-repo')
-                    topics.append('starred-{0}-repo'.format(repo_owner))
-                    giteaSetRepoTopics(repo_owner,repo_name,topics)
-                    giteaSetRepoStar(repo_owner,repo_name)
-            except GithubException as e:
-                print("###[error] ---> Github API Error Occured !")
-                print(e)
-                print(" ")
-        else:
-            log(repo)
+			status = giteaCreateRepo(m,repo.private,True)
+			if status != 'failed':
+				try:
+					if status != 'exists':
+						giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
+						topics = repo.get_topics()
+						topics.append('starred-repo')
+						topics.append('starred-{0}-repo'.format(repo_owner))
+						giteaSetRepoTopics(repo_owner,repo_name,topics)
+						giteaSetRepoStar(repo_owner,repo_name)
+				except GithubException as e:
+					print("###[error] ---> Github API Error Occured !")
+					print(e)
+					print(" ")
+			else:
+				log(repo)
+		except:
+			log("[error] Unknown Error Occured")
+			time.sleep(5)
+        
             
         if loop_count % 50 == 0:
             log(False)

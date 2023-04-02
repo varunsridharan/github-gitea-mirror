@@ -44,26 +44,26 @@ def repositorySource():
                 "uid"               : gitea_uid,
             }
 
-        status = giteaCreateRepo(m,repo.private,True)
-        if status != 'failed':
-            try:
-                if status != 'exists':
-                    giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
-                    topics = repo.get_topics()
-                    giteaSetRepoTopics(repo_owner,repo_name,topics)
-            except GithubException as e:
-                print("###[error] ---> Github API Error Occured !")
-                print(e)
-                print(" ")
-        else:
-            log(repo)
+            status = giteaCreateRepo(m,repo.private,True)
+            if status != 'failed':
+                try:
+                    if status != 'exists':
+                        giteaExistsRepos['{0}/{1}'.format(repo.owner.login,repo_name)] = "{0}/{1}".format(gitea_dest_user,repo_name)
+                        topics = repo.get_topics()
+                        giteaSetRepoTopics(repo_owner,repo_name,topics)
+                except GithubException as e:
+                    print("###[error] ---> Github API Error Occured !")
+                    print(e)
+                    print(" ")
+            else:
+                log(repo)
 
-        if loop_count % 50 == 0:
-            log(False)
-            log('Time To Sleep For 5 Seconds')
-            log(False)
-            time.sleep(5)
-        else:
-            log(False)
+            if loop_count % 50 == 0:
+                log(False)
+                log('Time To Sleep For 5 Seconds')
+                log(False)
+                time.sleep(5)
+            else:
+                log(False)
 
     saveLocalCache()
